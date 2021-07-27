@@ -2,7 +2,8 @@
 
 Let's now run a Deployment based on the ghost image (ghost is an open source blogging platform) and expose it though a NodePort Service.
 
-`cat<<EOF | sudo k0s kubectl apply -f -
+```
+cat<<EOF | sudo k0s kubectl apply -f -
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,7 +35,8 @@ spec:
   - port: 2368
     targetPort: 2368
     nodePort: 30000
-EOF`{{execute}}
+EOF
+```{{execute}}
 
 Make sure the resources have been created correctly:
 
