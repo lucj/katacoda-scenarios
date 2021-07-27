@@ -56,4 +56,5 @@ service/kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP          1
 service/ghost        NodePort    10.100.70.91   <none>        2368:30000/TCP   11s
 ```
 
-The Ghost interface should now be accessible from port 30000.
+In a few tens of seconds you should be able to access the Ghost interface that is exposed on port 30000:
+https://[[HOST_SUBDOMAIN]]-8500-[[KATACODA_HOST]].environments.katacoda.com/

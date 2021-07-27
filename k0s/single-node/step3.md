@@ -15,9 +15,13 @@ INFO[2021-06-24 18:36:26] creating user: kube-scheduler
 INFO[2021-06-24 18:36:26] Installing k0s service
 ```
 
-🔥 if you need to provide some configuration options different from the default ones, you could provide a configuration file through the -c flag in the command above.
+🔥 A configuration file could be provided using the *-c* flag should you want to use other properties than the default ones.
 
-As you can see from this output, a k0s systemd service is created (but is not started yet)
+This output shows that k0s systemd service is created (but is not started yet).
+
+You can get additional information using systemctl:
+
+`sudo systemctl status k0scontroller`{{execute}}
 
 Start the cluster:
 
@@ -38,13 +42,17 @@ Init System: linux-systemd
 Service file: /etc/systemd/system/k0scontroller.service
 ```
 
-It takes a few tens of seconds for the cluster to be up and running. 
-
 As k0s comes with its own kubectl subcommand, you can directly list the status of our single node cluster:
 
 `sudo k0s kubectl get node`{{execute}}
 
-You should get an output similar to the following one (the name of your node will be different though):
+:fire: it takes a few tens of seconds for the cluster to be up and running, for a few tens of seconds you might get the following output:
+
+```
+No resources found
+```
+
+When the cluster is up and running you should get an output similar to the following one (the name of your node will be different though):
 
 ```
 NAME              STATUS   ROLES    AGE     VERSION
