@@ -35,5 +35,8 @@
   },
   "backend": {
     "imageid": "ubuntu1804"
+  },
+  "environment": {
+    "uilayout": "terminal"
   }
 }
