@@ -1,0 +1,12 @@
+{
+  "title": "k0s course",
+  "description": "Several labs to discover k0s Kubernetes distribution",
+  "courses": 
+  [
+    {
+      "course_id": "single-node",
+      "title": "k0s single node cluster",
+      "description": "k0s single node cluster"
+    }
+  ]
+}

@@ -1,11 +1,14 @@
-## Default k0s configuration
+## A quick word on k0s configuration
 
 When running a k0s cluster, the default configuration options can be used but it is also possible to modify that one to better match specific needs.
 
-The following command shows the defaults configuration:
+Check the content of the defaults configuration:
+
+`k0s default-config`{{execute}}
+
+You will get the specification of a Cluster resource like the following one:
 
 ```
-$ k0s default-config
 apiVersion: k0s.k0sproject.io/v1beta1
 kind: Cluster
 metadata:
