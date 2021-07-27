@@ -41,5 +41,5 @@
     "showdashboard": true,
     "dashboards": [{"name": "ghost", "port": 3000}],
     "uilayout": "editor-terminal"
-  },
+  }
 }
