@@ -1,66 +1,25 @@
-## Running a sample workload
+## Cleanup
 
-Let's now run a Deployment based on the ghost image (ghost is an open source blogging platform) and expose it though a NodePort Service.
+First stop k0s
 
-:fire: Run all the command from the *admin* virtual machine
+`sudo k0s stop`{{execute}}
 
-```
-cat<<EOF | kubectl apply -f -
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: ghost
-spec:
-  selector:
-    matchLabels:
-      app: ghost
-  template:
-    metadata:
-      labels:
-        app: ghost
-    spec:
-      containers:
-      - name: ghost
-        image: ghost
-        ports:
-        - containerPort: 2368
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: ghost
-spec:
-  selector:
-    app: ghost
-  type: NodePort
-  ports:
-  - port: 2368
-    targetPort: 2368
-    nodePort: 30000
-EOF
-```
+then remove all k0s related files
 
-Make sure the resources have been created correctly:
+`sudo k0s reset`{{execute}}
+
+You will get an output similar to the following one, indicating all the k0s related components have been removed:
 
 ```
-$ kubectl get deploy,po,svc
+INFO[2021-06-24 19:05:43] * containers steps                           
+INFO[2021-06-24 19:05:50] successfully removed k0s containers!         
+INFO[2021-06-24 19:05:50] no config file given, using defaults         
+INFO[2021-06-24 19:05:50] * remove k0s users step:                     
+INFO[2021-06-24 19:05:50] no config file given, using defaults         
+INFO[2021-06-24 19:05:50] * uninstal service step                      
+INFO[2021-06-24 19:05:50] Uninstalling the k0s service                 
+INFO[2021-06-24 19:05:50] * remove directories step                    
+INFO[2021-06-24 19:05:56] * CNI leftovers cleanup step                 
+INFO k0s cleanup operations done. To ensure a full reset, a node reboot is recommended. 
 ```
-
-You should get an output similar to the following one (some identifiers might be different though)
-
-```
-NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/ghost   0/1     1            0           11s
-
-NAME                         READY   STATUS              RESTARTS   AGE
-pod/ghost-548879c755-x2m6d   0/1     ContainerCreating   0          11s
-
-NAME                 TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)          AGE
-service/kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP          14m
-service/ghost        NodePort    10.100.70.91   <none>        2368:30000/TCP   11s
-```
-
-Using the external IP address IP of the *k0s* VM and the NodePort 3000, you can access the ghost web interface:
-
-ghost interface
 

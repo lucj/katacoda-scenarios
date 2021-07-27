@@ -24,10 +24,6 @@
       {
         "title": "Step 5",
         "text": "step5.md"
-      },
-      {
-        "title": "Step 6",
-        "text": "step6.md"
       }
     ],
     "intro": {
@@ -37,10 +33,13 @@
       "text": "finish.md"
     }
   },
-  "environment": {
-    "uilayout": "editor-terminal-split"
-  },
   "backend": {
     "imageid": "ubuntu1804"
-  }
+  },
+  "environment": {
+    "uieditorpath": "/root/example",
+    "showdashboard": true,
+    "dashboards": [{"name": "ghost", "port": 3000}],
+    "uilayout": "editor-terminal"
+  },
 }
