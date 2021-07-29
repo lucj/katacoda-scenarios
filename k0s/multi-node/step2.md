@@ -8,7 +8,7 @@ Note: the *worker* role specified in the command indicates that the token will b
 
 Next copy that token into node01, in */tmp/worker_token*.
 
-Note: before running the following command you might need to switch to the fullscreen view of Katacoda terminals to get the whole token as this is a quite long string
+Note: you might need to switch to the fullscreen view of Katacoda terminals to get the whole token as this is a quite long string
 
 ```
 clear
@@ -35,7 +35,10 @@ Make sure it has started correctly
 
 You can list the nodes from the controlplane:
 
-`sudo k0s kubectl get node`{{execute}}
+```
+clear
+sudo k0s kubectl get node
+```{{execute}}
 
 Note: only the worker node appears in this list due to the control plane isolation feature of k0s
 
