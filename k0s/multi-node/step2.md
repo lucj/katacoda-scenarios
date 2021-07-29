@@ -10,15 +10,15 @@ Next copy that token into node01, in */tmp/worker_token*. You might need to swit
 
 Next download k0s onto node01:
 
-`curl -sSLf get.k0s.sh | sudo sh`{{execute node01}}
+`curl -sSLf get.k0s.sh | sudo sh`{{execute HOST2}}
 
 Install it as a worker node providing the join token as a parameter:
 
-`sudo k0s install worker --token-file /tmp/worker_token`{{execute node01}}
+`sudo k0s install worker --token-file /tmp/worker_token`{{execute HOST2}}
 
 Then start it:
 
-`sudo systemctl start k0sworker`{{execute node01}}
+`sudo systemctl start k0sworker`{{execute HOST2}}
 
 It will take a few tens of seconds to get the worker node ready. After it's running you can list the nodes from the controlplane:
 

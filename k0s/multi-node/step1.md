@@ -24,7 +24,10 @@ Start this service:
 
 Next, after a few seconds, verify it has been started properly:
 
-`sudo k0s status`{{execute}}
+```
+clear
+sudo k0s status
+```{{execute}}
 
 You should should get an output similar the following one:
 
