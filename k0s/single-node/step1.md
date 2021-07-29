@@ -13,5 +13,5 @@ Next check the current version of the k0s binary:
 You should get an output similar to the following one (your version could be slightly different though)
 
 ```
-v1.21.2+k0s.1
+v1.21.3+k0s.1
 ```

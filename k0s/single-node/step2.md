@@ -25,15 +25,15 @@ Start the cluster:
 
 `sudo k0s start`{{execute}}
 
-Next verify it has been started properly:
+Next, after a few seconds, verify it has been started properly:
 
 `sudo k0s status`{{execute}}
 
 You should should get an output similar the following one:
 
 ```
-Version: v1.21.2+k0s.0
-Process ID: 1672
+Version: v1.21.3+k0s.0
+Process ID: 1343
 Parent Process ID: 1
 Role: controller+worker
 Init System: linux-systemd
@@ -44,7 +44,7 @@ As k0s comes with its own kubectl subcommand, you can directly list the status o
 
 `sudo k0s kubectl get node`{{execute}}
 
-:fire: it takes a few tens of seconds for the cluster to be up and running, for a few tens of seconds you might get the following output:
+Note: it takes a few tens of seconds for the cluster to be up and running, for a few tens of seconds you might get the following output:
 
 ```
 No resources found
@@ -53,6 +53,6 @@ No resources found
 When the cluster is up and running you should get an output similar to the following one (the name of your node will be different though):
 
 ```
-NAME              STATUS   ROLES    AGE     VERSION
-ip-172-31-17-54   Ready    <none>   5m45s   v1.21.2+k0s
+NAME     STATUS   ROLES    AGE   VERSION
+host01   Ready    <none>   53s   v1.21.3+k0s
 ```

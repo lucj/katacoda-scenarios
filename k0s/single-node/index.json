@@ -41,6 +41,6 @@
     "imageid": "ubuntu1804"
   },
   "environment": {
-    "uilayout": "terminal"
+    "uilayout": "editor-terminal"
   }
 }
