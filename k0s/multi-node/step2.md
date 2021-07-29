@@ -6,7 +6,14 @@ First get the join token from the controlplane node:
 
 Note: the *worker* role specified in the command indicates that the token will be used to add a worker (that is the default value). We could also use a *controller* role to add additional controllers in the cluster.
 
-Next copy that token into node01, in */tmp/worker_token*. You might need to switch to the fullscreen view to get the whole token as this is a quite long string.
+Next copy that token into node01, in */tmp/worker_token*.
+
+Note: before running the following command you might need to switch to the fullscreen view of Katacoda terminals to get the whole token as this is a quite long string
+
+```
+clear
+cat ./worker_token
+```{{execute}}
 
 Next download k0s onto node01:
 
@@ -18,19 +25,23 @@ Install it as a worker node providing the join token as a parameter:
 
 Then start it:
 
-`sudo systemctl start k0sworker`{{execute HOST2}}
+`sudo k0s start`{{execute HOST2}}
 
-It will take a few tens of seconds to get the worker node ready. After it's running you can list the nodes from the controlplane:
+It will take a few tens of seconds to get the worker node ready.
+
+Make sure it has started correctly
+
+`sudo k0s status`{{execute HOST2}}
+
+You can list the nodes from the controlplane:
 
 `sudo k0s kubectl get node`{{execute}}
 
-You should now be able to see the newly added worker:
+Note: only the worker node appears in this list due to the control plane isolation feature of k0s
 
 ```
 NAME     STATUS   ROLES    AGE   VERSION
 node01   Ready    <none>   32s   v1.21.3+k0s
 ```
-
-Note: only the worker node appears in this list due to the control plane isolation feature of k0s.
 
 You've succesfully created a multi-node cluster containing one controller and one worker node.
