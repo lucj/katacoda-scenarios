@@ -44,7 +44,7 @@ As k0s comes with its own kubectl subcommand, you can directly list the status o
 
 `sudo k0s kubectl get node`{{execute}}
 
-Note: it takes a few tens of seconds for the cluster to be up and running, for a few tens of seconds you might get the following output:
+Note: it takes a few tens of seconds for the cluster to be up and running, while it is initializing you might get the following output 
 
 ```
 No resources found

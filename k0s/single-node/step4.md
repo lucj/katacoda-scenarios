@@ -38,9 +38,17 @@ spec:
 EOF
 ```{{execute}}
 
+You should get the following output
+
+```
+deployment.apps/ghost created
+service/ghost created
+```
+
 Make sure the resources have been created correctly:
 
 `sudo k0s kubectl get deploy,po,svc`{{execute}}
+
 
 You should get an output similar to the following one (some identifiers might be different though)
 
@@ -56,5 +64,9 @@ service/kubernetes   ClusterIP   10.96.0.1      <none>        443/TCP          1
 service/ghost        NodePort    10.100.70.91   <none>        2368:30000/TCP   11s
 ```
 
-In a few tens of seconds you should be able to access the Ghost interface that is exposed on port 30000:
+In this example Ghost is exposed via a NodePort Service opening port 30000.
+
+In a few tens of seconds you should be able to access the Ghost interface from the following URL:
 https://[[HOST_SUBDOMAIN]]-30000-[[KATACODA_HOST]].environments.katacoda.com/
+
+![Ghost](./assets/ghost.png)

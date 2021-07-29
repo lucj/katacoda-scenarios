@@ -12,6 +12,8 @@ To override some of those properties, save the configuration in a file:
 
 Add the following entry in the list of sans (under .spec.api.sans), you will use that URL to access the cluster from the outside in a later step.
 
+Note: you can use Katacoda's handy editor to do this step, otherwise *vi* is also a good choice :)
+
 `[[HOST_SUBDOMAIN]]-6443-[[KATACODA_HOST]].environments.katacoda.com`
 
 To restart the cluster taking into account this new configuration, you first need to stop the cluster
@@ -26,7 +28,7 @@ and reinstall the cluster with its new configuration:
 
 `sudo k0s install controller --single -c k0s.config`{{execute}}
 
-The cluster can then be restarted, it will then take into account the configuration options specified
+The cluster can be restarted, it will take into account the configuration options specified
 
 `sudo k0s start`{{execute}}
 

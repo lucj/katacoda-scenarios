@@ -8,7 +8,9 @@ First retrieve the kubeconfig file generated during the cluster creation, this o
 
 As this kubeconfig references an API Server on localhost, you need to replace `localhost:6443` with the URL added as  an additional SAN (Subject Alternative Name) in the step 3.
 
-In the  kubeconfig file, the following part
+Note: you can use Katacoda's editor for that purpose
+
+In the kubeconfig file, change the following part
 
 ```
 clusters:
@@ -17,7 +19,7 @@ clusters:
     ...
 ```
 
-should then look like:
+into
 
 ```
 clusters:
@@ -37,3 +39,8 @@ Then setup the KUBECONFIG environment variable so it contains the path towards t
 You can then access the cluster from your local machine:
 
 `kubectl get no`{{execute}}
+
+Note: currently got the following error that needs to be fixed:
+```
+Unable to connect to the server: x509: certificate signed by unknown authority
+```
