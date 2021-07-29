@@ -10,17 +10,21 @@ Next copy that token into Host2, in */tmp/worker_token*
 
 Next download k0s onto Host2
 
-`curl -sSLf get.k0s.sh | sudo sh`{{execute}}
+`curl -sSLf get.k0s.sh | sudo sh`{{execute Host2}}
 
 Install it as a worker node providing the join token as a parameter
 
-`sudo k0s install worker --token-file /tmp/worker_token`{{execute}}
+`sudo k0s install worker --token-file /tmp/worker_token`{{execute Host1}}
 
-Then start k0s
+Then start k0s on Host2
 
-`sudo systemctl start k0sworker`{{execute}}
+`sudo systemctl start k0sworker`{{execute Host2}}
 
-Listing the cluster's nodes one more time, you should now be able to see the newly added worker:
+List the cluster's nodes from Host1
+
+`sudo k0s kubectl get node`{{execute Host1}}
+
+You should now be able to see the newly added worker:
 
 ```
 $ kubectl get nodes

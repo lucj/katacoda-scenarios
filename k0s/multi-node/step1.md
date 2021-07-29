@@ -12,28 +12,13 @@ You should get an output similar to the following one (your version could be sli
 v1.21.3+k0s.1
 ```
 
-In this step you will start k0s as a controller node:
+First, install k0s as a controller node:
 
 `sudo k0s install controller`{{execute}}
 
-You should get an output similar to the following one:
+This create a k0scontroller systemd service.
 
-```
-INFO[2021-06-24 18:36:26] no config file given, using defaults         
-INFO[2021-06-24 18:36:26] creating user: etcd                          
-INFO[2021-06-24 18:36:26] creating user: kube-apiserver                
-INFO[2021-06-24 18:36:26] creating user: konnectivity-server           
-INFO[2021-06-24 18:36:26] creating user: kube-scheduler                
-INFO[2021-06-24 18:36:26] Installing k0s service
-```
-
-This output shows that k0s systemd service is created (but is not started yet).
-
-You can get additional information using systemctl:
-
-`sudo systemctl status k0scontroller`{{execute}}
-
-Start the cluster:
+Start this service:
 
 `sudo k0s start`{{execute}}
 
