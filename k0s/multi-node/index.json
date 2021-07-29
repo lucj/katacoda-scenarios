@@ -1,0 +1,26 @@
+{
+    "title": "k0s multi-node cluster",
+    "description": "Creation of a multi-node k0s cluster",
+    "details": {
+        "steps": [
+            {
+                "title": "Step 1",
+                "text": "step1.md"
+            },
+            {
+                "title": "Step 2",
+                "text": "step2.md"
+            }
+        ],
+        "finish": {
+            "text": "finish.md"
+        }
+    },
+    "environment": {
+        "hideintro": true,
+        "uilayout": "terminal-terminal"
+    },
+    "backend": {
+        "imageid": "kubernetes-cluster:1.18"
+    }
+}

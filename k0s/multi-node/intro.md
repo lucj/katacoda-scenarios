@@ -1,0 +1,1 @@
+In this lab you will learn how to create a multi-node k0s cluster
