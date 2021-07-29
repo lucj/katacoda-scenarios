@@ -1,25 +1,29 @@
-## Cleanup
+## Communication from an external machine
 
-First stop k0s
+Usually, we do not ssh into a controller node to manage the cluster but use an external machine instead. In this part, you will setup the admin machine to communicate with the cluster.
 
-`sudo k0s stop`{{execute}}
+First retrieve the kubeconfig file generated during the cluster creation, this one is in */var/lib/k0s/pki/admin.conf*.
 
-then remove all k0s related files
+`sudo cat /var/lib/k0s/pki/admin.conf > ./kubeconfig`{{execute}}
 
-`sudo k0s reset`{{execute}}
+As this kubeconfig references an API Server on localhost, you need to replace `localhost:6443` with the URL added as  an additional SAN (Subject Alternative Name) in the step 3.
 
-You will get an output similar to the following one, indicating all the k0s related components have been removed:
+In the  kubeconfig file, the following part
 
 ```
-INFO[2021-06-24 19:05:43] * containers steps                           
-INFO[2021-06-24 19:05:50] successfully removed k0s containers!         
-INFO[2021-06-24 19:05:50] no config file given, using defaults         
-INFO[2021-06-24 19:05:50] * remove k0s users step:                     
-INFO[2021-06-24 19:05:50] no config file given, using defaults         
-INFO[2021-06-24 19:05:50] * uninstal service step                      
-INFO[2021-06-24 19:05:50] Uninstalling the k0s service                 
-INFO[2021-06-24 19:05:50] * remove directories step                    
-INFO[2021-06-24 19:05:56] * CNI leftovers cleanup step                 
-INFO k0s cleanup operations done. To ensure a full reset, a node reboot is recommended. 
+clusters:
+- cluster:
+    server: https://localhost:6443
+    ...
 ```
 
+should then look like:
+
+```
+clusters:
+- cluster:
+    server: https://[[HOST_SUBDOMAIN]]-6443-[[KATACODA_HOST]].environments.katacoda.com
+    ...
+```
+
+Copy this new version of the kubeconfig file on your local machine.

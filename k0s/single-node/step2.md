@@ -1,87 +1,58 @@
-## A quick word on k0s configuration
+In this step you will start k0s in the single-node configuration.
 
-When running a k0s cluster, the default configuration options can be used but it is also possible to modify that one to better match specific needs.
+Create a single node k0s cluster:
 
-Check the content of the defaults configuration:
+`sudo k0s install controller --single`{{execute}}
 
-`k0s default-config`{{execute}}
-
-You will get the specification of a Cluster resource like the following one:
+You should get an output similar to the following one:
 
 ```
-apiVersion: k0s.k0sproject.io/v1beta1
-kind: Cluster
-metadata:
-  name: k0s
-spec:
-  api:
-    address: 192.168.64.48
-    port: 6443
-    k0sApiPort: 9443
-    sans:
-    - 192.168.64.48
-  storage:
-    type: etcd
-    etcd:
-      peerAddress: 192.168.64.48
-  network:
-    podCIDR: 10.244.0.0/16
-    serviceCIDR: 10.96.0.0/12
-    provider: kuberouter
-    calico: null
-    kuberouter:
-      mtu: 0
-      peerRouterIPs: ""
-      peerRouterASNs: ""
-      autoMTU: true
-    kubeProxy:
-      disabled: false
-      mode: iptables
-  podSecurityPolicy:
-    defaultPolicy: 00-k0s-privileged
-  telemetry:
-    enabled: true
-  installConfig:
-    users:
-      etcdUser: etcd
-      kineUser: kube-apiserver
-      konnectivityUser: konnectivity-server
-      kubeAPIserverUser: kube-apiserver
-      kubeSchedulerUser: kube-scheduler
-  images:
-    konnectivity:
-      image: us.gcr.io/k8s-artifacts-prod/kas-network-proxy/proxy-agent
-      version: v0.0.20
-    metricsserver:
-      image: gcr.io/k8s-staging-metrics-server/metrics-server
-      version: v0.3.7
-    kubeproxy:
-      image: k8s.gcr.io/kube-proxy
-      version: v1.21.2
-    coredns:
-      image: docker.io/coredns/coredns
-      version: 1.7.0
-    calico:
-      cni:
-        image: docker.io/calico/cni
-        version: v3.18.1
-      node:
-        image: docker.io/calico/node
-        version: v3.18.1
-      kubecontrollers:
-        image: docker.io/calico/kube-controllers
-        version: v3.18.1
-    kuberouter:
-      cni:
-        image: docker.io/cloudnativelabs/kube-router
-        version: v1.2.1
-      cniInstaller:
-        image: quay.io/k0sproject/cni-node
-        version: 0.1.0
-    default_pull_policy: IfNotPresent
-  konnectivity:
-    agentPort: 8132
-    adminPort: 8133
+INFO[2021-06-24 18:36:26] no config file given, using defaults         
+INFO[2021-06-24 18:36:26] creating user: etcd                          
+INFO[2021-06-24 18:36:26] creating user: kube-apiserver                
+INFO[2021-06-24 18:36:26] creating user: konnectivity-server           
+INFO[2021-06-24 18:36:26] creating user: kube-scheduler                
+INFO[2021-06-24 18:36:26] Installing k0s service
 ```
 
-🔥 to override some of those properties you can save the output of the previous command in a file, modify that one to match our needs and then use it when running k0s (more on that below)
+This output shows that k0s systemd service is created (but is not started yet).
+
+You can get additional information using systemctl:
+
+`sudo systemctl status k0scontroller`{{execute}}
+
+Start the cluster:
+
+`sudo k0s start`{{execute}}
+
+Next verify it has been started properly:
+
+`sudo k0s status`{{execute}}
+
+You should should get an output similar the following one:
+
+```
+Version: v1.21.2+k0s.0
+Process ID: 1672
+Parent Process ID: 1
+Role: controller+worker
+Init System: linux-systemd
+Service file: /etc/systemd/system/k0scontroller.service
+```
+
+As k0s comes with its own kubectl subcommand, you can directly list the status of our single node cluster:
+
+`sudo k0s kubectl get node`{{execute}}
+
+:fire: it takes a few tens of seconds for the cluster to be up and running, for a few tens of seconds you might get the following output:
+
+```
+No resources found
+```
+
+When the cluster is up and running you should get an output similar to the following one (the name of your node will be different though):
+
+```
+NAME              STATUS   ROLES    AGE     VERSION
+ip-172-31-17-54   Ready    <none>   5m45s   v1.21.2+k0s
+```

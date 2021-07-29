@@ -1,60 +1,33 @@
-In this step you will start k0s in the single-node configuration.
+## A quick word on k0s configuration
 
-Create a single node k0s cluster:
+When running a k0s cluster, the default configuration is used unless another options  be used but it is also possible to modify that one to better match specific needs.
 
-`sudo k0s install controller --single`{{execute}}
+Check the content of the defaults configuration:
 
-You should get an output similar to the following one:
+`k0s default-config`{{execute}}
 
-```
-INFO[2021-06-24 18:36:26] no config file given, using defaults         
-INFO[2021-06-24 18:36:26] creating user: etcd                          
-INFO[2021-06-24 18:36:26] creating user: kube-apiserver                
-INFO[2021-06-24 18:36:26] creating user: konnectivity-server           
-INFO[2021-06-24 18:36:26] creating user: kube-scheduler                
-INFO[2021-06-24 18:36:26] Installing k0s service
-```
+To override some of those properties you can save the output in a file
 
-🔥 A configuration file could be provided using the *-c* flag should you want to use other properties than the default ones.
+`k0s default-config > k0s.config`{{execute}}
 
-This output shows that k0s systemd service is created (but is not started yet).
+When you have modified the configuration file to match your needs,you just need to specify it, using the *-c* flag, when running k0s.
 
-You can get additional information using systemctl:
+For instance, add the following entry in the list of sans (under .spec.api.sans), we will use that URL to access the cluster from the outside in a later step.
 
-`sudo systemctl status k0scontroller`{{execute}}
+`https://[[HOST_SUBDOMAIN]]-6443-[[KATACODA_HOST]].environments.katacoda.com`
 
-Start the cluster:
+To restart the cluster taking into account this new configuration, you first need to stop the cluster
+
+`sudo k0s stop`{{execute}}
+
+Then you need to reset k0s removing all its related components: 
+
+`sudo k0s reset`{{execute}}
+
+Reinstall the cluster with its new configuration:
+
+`sudo k0s install controller --single -c k0s.config`{{execute}}
+
+The cluster can then be restarted, it will then take into account the configuration options specified
 
 `sudo k0s start`{{execute}}
-
-Next verify it has been started properly:
-
-`sudo k0s status`{{execute}}
-
-You should should get an output similar the following one:
-
-```
-Version: v1.21.2+k0s.0
-Process ID: 1672
-Parent Process ID: 1
-Role: controller+worker
-Init System: linux-systemd
-Service file: /etc/systemd/system/k0scontroller.service
-```
-
-As k0s comes with its own kubectl subcommand, you can directly list the status of our single node cluster:
-
-`sudo k0s kubectl get node`{{execute}}
-
-:fire: it takes a few tens of seconds for the cluster to be up and running, for a few tens of seconds you might get the following output:
-
-```
-No resources found
-```
-
-When the cluster is up and running you should get an output similar to the following one (the name of your node will be different though):
-
-```
-NAME              STATUS   ROLES    AGE     VERSION
-ip-172-31-17-54   Ready    <none>   5m45s   v1.21.2+k0s
-```
